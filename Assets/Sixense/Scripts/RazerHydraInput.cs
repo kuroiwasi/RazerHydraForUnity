@@ -15,7 +15,6 @@ namespace Sixense
         public CONTROLLER_ID ControllerID = CONTROLLER_ID.ZERO;
         public float JoystickPressThreshold = 0;
         public float TriggerPressThreshold = 0.5f;
-        private RazerHydraManager ControllerManager;
         private SixenseControllerData currentData;
         private readonly float scaleFactor = 0.001f;
         private Dictionary<RazerHydraButton.TYPE, RazerHydraButton> buttons;
@@ -23,8 +22,6 @@ namespace Sixense
 
         void Start()
         {
-            ControllerManager = RazerHydraManager.Instance;
-
             buttons = new Dictionary<RazerHydraButton.TYPE, RazerHydraButton>
             {
                 { RazerHydraButton.TYPE.BUMPER, new RazerHydraButton(RazerHydraButton.TYPE.BUMPER) },
@@ -46,7 +43,7 @@ namespace Sixense
 
         void Update()
         {
-            currentData = ControllerManager.GetControllerData((int)ControllerID);
+            currentData = RazerHydraManager.Instance.GetControllerData((int)ControllerID);
             foreach(var element in buttons.Values)
             {
                 element.Update(currentData);
