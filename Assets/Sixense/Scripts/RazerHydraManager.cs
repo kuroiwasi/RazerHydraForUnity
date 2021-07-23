@@ -12,7 +12,7 @@ namespace Sixense
             GetAllNewestData(out AllData);
         }
 
-        private void OnApplicationQuit()
+        void OnDisable()
         {
             Exit();
         }
