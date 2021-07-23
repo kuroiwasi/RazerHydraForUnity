@@ -5,16 +5,26 @@ namespace Sixense
     public class RazerHydraManager : SingletonMonoBehaviour<RazerHydraManager>
     {
         private SixenseAllControllerData AllData;
+        private bool initialized;
 
-        void OnEnable()
+        new void Awake()
         {
-            Init();
-            GetAllNewestData(out AllData);
+            base.Awake();
+            if (isActiveAndEnabled)
+            {
+                Init();
+                GetAllNewestData(out AllData);
+                initialized = true;
+            }
         }
 
-        void OnDisable()
+        new void OnDestroy()
         {
-            Exit();
+            if (initialized)
+            {
+                Exit();
+                base.OnDestroy();
+            }
         }
 
         void Update()
